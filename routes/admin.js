@@ -3,7 +3,7 @@ const adminRouter=Router()
 const {adminModel, courseModel}=require("../db")
 const jwt=require("jsonwebtoken")
 const { adminMiddleware } = require("../middleware/admin")
-const JWT_ADMIN_PASSWORD=require(("../config"))
+const JWT_ADMIN_PASSWORD=require(("../env"))
 
 adminRouter.post("/signup",async function(req,res){
     const {email,password,firstName,lastName}=req.body;

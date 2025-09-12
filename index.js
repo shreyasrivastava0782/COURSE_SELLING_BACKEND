@@ -1,3 +1,5 @@
+require("dotenv").config()
+console.log(process.env.MONGO_URL)
 const express=require("express")
 const app=express()
 const jwt=require("jsonwebtoken")
@@ -14,7 +16,7 @@ app.use("/api/v1/admin",adminRouter)
 
 
 async function main(){
-await mongoose.connect("mongodb+srv://shreyasrivastava722_db_user:aeIDBPAHTnjsfpM0@cluster0.6hbraew.mongodb.net/course-selling-app")
+await mongoose.connect(process.env.MONGO_URL)
 app.listen(3000);
 }
 
