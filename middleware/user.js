@@ -1,5 +1,5 @@
 const jwt=require("jsonwebtoken")
-const {JWT_USER_PASSWORD}=require("./")
+const {JWT_USER_PASSWORD}=require(process.env.JWT_USER_PASSWORD)
 
 
 function userMiddleware(req,res,next){

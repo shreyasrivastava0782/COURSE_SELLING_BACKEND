@@ -1,5 +1,5 @@
 const jwt=require("jsonwebtoken")
-const {JWT_ADMIN_PASSWORD}=require("./")
+const {JWT_ADMIN_PASSWORD}=require(process.env.JWT_ADMIN_PASSWORD)
 
 
 function adminMiddleware(req,res,next){
