@@ -1,18 +1,30 @@
 const {Router}=require("express");
 const courseRouter =Router();
-const {courseModel}=require("../db")
+const {courseModel, purchaseModel}=require("../db")
+const {userMiddleware}=require("../middleware/user")
 
-courseRouter.post("/purchase",function(req,res){
+
+courseRouter.post("/purchase",userMiddleware,async function(req,res){
     //user can pay money
+    const userId=req.userId;
+    const courseId=req.body.courseId;
+
+    await purchaseModel.create({
+        userId,
+        courseId
+    })
+
     res.json({
-        message:"user pay the money for the course"
+        message:"you have successfully bought the course",
     })
 
 })
 
-courseRouter.get("/preview",function(req,res){
+courseRouter.get("/preview",async function(req,res){
+    const courses=await courseModel.find({});
+
     res.json({
-        message:"all courses visible here"
+        message:courses
     })
 })
 
