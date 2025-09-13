@@ -1,10 +1,10 @@
 const jwt=require("jsonwebtoken")
-const {JWT_ADMIN_PASSWORD}=require(process.env.JWT_ADMIN_PASSWORD)
+
 
 
 function adminMiddleware(req,res,next){
     const token=req.headers.token;
-    const decoded=jwt.verify(token,JWT_ADMIN_PASSWORD)
+    const decoded=jwt.verify(token,process.env.JWT_ADMIN_PASSWORD)
 
     if(decoded){
         req.adminId=decoded._id
@@ -17,6 +17,6 @@ function adminMiddleware(req,res,next){
     }
 }
 
-module.exporrts={
+module.exports={
     adminMiddleware:adminMiddleware
 }
