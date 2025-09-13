@@ -3,7 +3,9 @@
 
 const {Router}=require("express");
 const userRouter =Router();
-const {userModel, purchaseModel}=require("../db")
+const {userModel, purchaseModel, courseModel}=require("../db")
+const {userMiddleware}=require("../middleware/user")
+const jwt=require("jsonwebtoken")
 
 userRouter.post("/signup",async function(req,res){
 
@@ -43,7 +45,7 @@ userRouter.post("/signin",async function(req,res){
         if(user){
             const token=jwt.sign({
                 id:user._id
-            },process.env.JWT_ADMIN_PASSWORD)
+            },process.env.JWT_USER_PASSWORD)
     
             res.json({
                 token:token
@@ -65,8 +67,18 @@ userRouter.get("/purchases",userMiddleware,async function(req,res){
         userId,
     })
 
+    let purchasedCourseIds=[];
+
+    for(let i=0;i<purchases.length;i++){
+        purchasedCourseIds.push(purchases[i].courseId)
+    }
+    const courseData=await courseModel.find({
+        _id:{$in:purchasedCourseIds}
+    })
+
     res.json({
-        purchases
+        purchases,
+        courseData
     })
 
 })

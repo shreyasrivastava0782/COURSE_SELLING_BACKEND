@@ -7,7 +7,7 @@ function userMiddleware(req,res,next){
     const decoded=jwt.verify(token,process.env.JWT_USER_PASSWORD)
 
     if(decoded){
-        req.userId=dedcoded._id
+        req.userId=decoded._id
         next()
     }
     else{
@@ -17,6 +17,6 @@ function userMiddleware(req,res,next){
     }
 }
 
-module.exporrts={
+module.exports={
     userMiddleware:userMiddleware
 }
